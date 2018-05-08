@@ -1,0 +1,21 @@
+{
+  "name": "root-css",
+  "version": "0.0.3",
+  "description": "It is a small utility to create styles",
+  "main": "build/cjs.js",
+  "module": "build/cjs.js",
+  "umd:main": "build/umd.js",
+  "jsnext:main": "build/cjs.js",
+  "source": "src/index.js",
+  "scripts": {},
+  "author": "Matias Trujillo Olivares",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^20.0.4",
+    "rollup-plugin-buble": "^0.19.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UpperCod/root-css.git"
+  }
+}
