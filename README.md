@@ -146,4 +146,4 @@ let Title = style("div")(`
 }
 ```
 
-Su css seguirá siendo el mismo, solo qe esta vez orientado a componentes.
+Your css is still the same, only oriented to components.
