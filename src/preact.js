@@ -4,10 +4,18 @@ import { join } from "./utils";
 import { config, createId, createTag } from "./config";
 
 export class Theme extends Component {
+    /**
+     * define the state attributes to be taken from CSS
+     * @param {object} props - according to the condition of the index of each property, the prefix given by props._prefix was added
+     * @param {object} [data] - You can deliver an object that already includes additional properties to the first argument
+     * @returns {object} nextProps
+     */
     setProps(props, data = {}) {
         for (let prop in props) {
             if (!/^(children|_style|_tag|_prefix|_load|_root)$/.test(prop)) {
-                data[/^on/.test(prop) ? prop : join(props._prefix, prop)] =
+                data[
+                    /^(on|style)/.test(prop) ? prop : join(props._prefix, prop)
+                ] =
                     props[prop];
             }
         }
@@ -26,9 +34,9 @@ export class Theme extends Component {
     }
 }
 
-export function create(tag = "div") {
+export function create(tag = "div", className = createId("S")) {
     return style => {
-        style = new Sheet(style, createId("S"), config.prefix, createTag());
+        style = new Sheet(style, className, config.prefix, createTag());
         return props => (
             <Theme
                 {...props}

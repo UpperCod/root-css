@@ -3,7 +3,12 @@ export let config = {
     tag: false,
     ids: []
 };
-
+/**
+ * if there already exists the id in config.ids this through recursividadamenta its size to return again a unique id...
+ * @param {string} prefix - prefix before the id
+ * @param {number} size - maximum size of the id
+ * @return {string} - unique id in config.ids
+ */
 export function createId(prefix = "", size = 5) {
     let range =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
@@ -19,7 +24,9 @@ export function createId(prefix = "", size = 5) {
         return id;
     }
 }
-
+/**
+ * @return {element} - creates and inserts a unique style element for root-css in the sun
+ */
 export function createTag() {
     if (config.tag) return config.tag;
     config.tag = document.createElement("style");

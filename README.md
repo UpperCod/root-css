@@ -146,4 +146,26 @@ let Title = style("div")(`
 }
 ```
 
+## Events and styles
+
+If you deliver to the component properties that comply with the following expression `/^(on|style)/`, these will be ignored as the state of the component and will be defined as a property of its own.
+
+
+```js
+let Title = style(h1)(`
+    :root{
+        font-size : 50px;
+    }
+`);
+
+function App(){
+    return <div>
+        <Title onclick={()=>{
+            console.log("click!")
+        }}>Hello!</Title>
+    </div>
+}
+
+```
+
 Your css is still the same, only oriented to components.

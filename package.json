@@ -1,6 +1,6 @@
 {
   "name": "root-css",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "It is a small utility to create styles",
   "main": "build/cjs.js",
   "module": "build/cjs.js",
