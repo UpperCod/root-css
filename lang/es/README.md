@@ -148,7 +148,7 @@ let Title = style("div")(`
 
 ## Eventos y estilos
 
-Si ud entrega al componente propiedades que cumpla con las siguiente expresion `/^(on|style)/`, estas serán ignoradas como estado del componente y se definirán como una propiedad propia de él.
+Si ud entrega al componente propiedades que cumpla con las siguiente expresion `/^(on[^\s]{3,}|style)/`, estas serán ignoradas como estado del componente y se definirán como una propiedad propia de él.
 
 ```js
 let Title = style(h1)(`

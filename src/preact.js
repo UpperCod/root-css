@@ -14,7 +14,9 @@ export class Theme extends Component {
         for (let prop in props) {
             if (!/^(children|_style|_tag|_prefix|_load|_root)$/.test(prop)) {
                 data[
-                    /^(on|style)/.test(prop) ? prop : join(props._prefix, prop)
+                    /^(on[^\s]{3,}|style)/.test(prop)
+                        ? prop
+                        : join(props._prefix, prop)
                 ] =
                     props[prop];
             }
