@@ -1,6 +1,6 @@
 {
     "name": "root-css",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "state management solution for Javascript applications",
     "main": "build/root-css.js",
     "umd:main": "build/root-css.umd.js",
