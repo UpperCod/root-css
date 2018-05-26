@@ -12,7 +12,7 @@ The following example shows how an environment based on **root-css**, **rollup**
 > I could see the code of this example in [/example](https://github.com/uppercod/root-css/example)
 
 
-In the attached link you can see more configuration parameters for [rollup-root-css](https://github.com/uppercod/transform-root-css/libs)
+In the attached link you can see more configuration parameters for [rollup-root-css](https://github.com/UpperCod/transform-root-css/tree/master/libs)
 
 ### /example
 

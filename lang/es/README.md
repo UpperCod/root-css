@@ -11,7 +11,7 @@ El siguiente ejemplo enseña como es un entorno a base de **root-css**
 > Pude ver el codigo de este ejemplo en [/example](https://github.com/uppercod/root-css/example)
 
 
-En el vínculo adjunto puede ver más parámetros de configuración para [rollup-root-css](https://github.com/uppercod/transform-root-css/libs)
+En el vínculo adjunto puede ver más parámetros de configuración para [rollup-root-css](https://github.com/UpperCod/transform-root-css/tree/master/libs)
 
 ### directorio
 
