@@ -9,7 +9,7 @@ Root exploits the potential of bundler tools, such as **rollup**.
 
 The following example shows how an environment based on **root-css**, **rollup** y **preact**.
 
-> I could see the code of this example in [/example](https://github.com/uppercod/root-css/example)
+> I could see the code of this example in [/example](https://github.com/UpperCod/root-css/tree/master/example)
 
 
 In the attached link you can see more configuration parameters for [rollup-root-css](https://github.com/UpperCod/transform-root-css/tree/master/libs)
