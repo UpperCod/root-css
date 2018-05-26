@@ -1,0 +1,11 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^8.5.0",
+    "preact": "^8.2.9",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-root-css": "^0.1.5",
+    "root-css": "^0.1.0"
+  }
+}

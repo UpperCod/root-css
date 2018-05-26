@@ -1,170 +1,131 @@
 # root-css
 
-Es una **pequeña** utilidad para crear estilos, para **preact**, con algunas ideas de **css-block** y **styled-components**.
+Root css es una pequeña librería inspirada en css-module, root-css logra aislar su estilo creando className únicos para cada componente creado con **preact**
 
-| formato |tamaño|
-|--------|---|
-| normal |7.07kb |
-| min | 2.48kb |
-| gzip | 1.37kb |
+## Ejemplo
 
-El funcionamiento de **root-css** es simple, separa las reglas en bloque y reemplaza la palabra root por un alias generado de forma aleatoria, **root-css** no optimiza estilos solo los imprime.
+Root explota el potencial de las herramientas de bundler, como **rollup**.
 
-## Gameplay
+El siguiente ejemplo enseña como es un entorno a base de **root-css**
 
-Si está ansioso y no quiere leer la pequeña documentación, puede testear fácilmente **root-css** en [codesandbox.io/s/jjpnknv605](https://codesandbox.io/s/jjpnknv605), lo invito a leer el código, editarlo y comentarme mejoras.
+> Pude ver el codigo de este ejemplo en [/example](https://github.com/uppercod/root-css/example)
 
-## :root
 
-La magia de **root-css** esta en el uso del prefijo **:root**, ya con el ud podrá hacer uso de los selector de atributo `:root[attribute=value]`.
+En el vínculo adjunto puede ver más parámetros de configuración para [rollup-root-css](https://github.com/uppercod/transform-root-css/libs)
 
-```js
-import style from "root-css";
+### directorio
 
-let Title = style("div")(`
-   :root{
-       font-size : 22px;
-   }
-   :root[size=large]{
-       font-size : 26px;
-   }
-   :root[size=small]{
-       font-size : 18px;
-   }
-`);
+
+```cmd
+/example
+├───components
+│   └───title
+│       ├───style.root.css
+│       └───index.js
+├───style.root.js
+├───index.js
+└───rollup.config.js
 ```
 
-Con **root-css** usted podrá compartir el estado del componente con la hoja de estilo de forma nativa, como enseña el siguiente ejemplo:
+### /example/components/title/style.root.css
 
-```js
-// Component
-<Title size="large">
-   hello!
-</Title>
-// return render
-<div data-state-size="large">
-   hello!
-</div>
-```
-
-> **root-css** convertira  `:root[size=large]` en `.SybQrQ[data-state-size=large]`, entendiendo que el nombre de la clase **SybQrQ** es único para cada componente invocado por **root-css**.
-
-## :global
-
-permite insertar estilos de forma global.
-
-```js
-import style from "root-css";
-
-let Title = style("div")(`
-   :global body{
-       font-family : arial;
-   }
-`);
-```
-
-## :rootName
-
-será reemplazado por el nombre aleatorio asignado al componente, este no antepone el punto, como si lo realiza **:root**.
-
-```js
-import style from "root-css";
-
-let Title = style("div")(`
-   :root{
-       width: 100px;
-       height: 100px;
-       background: black;
-       position :relative;
-       animation: :rootName-mymove 5s infinite;
-   }
-   @keyframes :rootName-mymove {
-       from {top: 0px;}
-       to {top: 200px;}
-   }
-`);
-```
-
-## selectores
-
-recomiendo el uso de **:root** sólo cuando usted quiere apuntar a él o a un estado del componente, ya que por defecto. **root-css** añade el prefijo de root a cualquier selector dentro de él.
-
-**JS** : el estilo solo se aplicará si dentro de **Title** se añade un tag **button**
-```js
-import style from "root-css";
-
-let Title = style("div")(`
-   button,
-   a{
-       padding : 5px 10px;
-       background : black;
-       color : white;
-       font-size : 12px;
-   }
-`);
-```
-**CSS** : esta sería la salida del css del ejemplo anterior.
 ```css
-.SybQrQ  button,
-.SybQrQ  a{
-   padding : 5px 10px;
-   background : black;
-   color : white;
-   font-size : 12px;
+:root {
+   font-size: 30px;
+   &[size=small] {
+       font-size: 10px;
+   }
+   &[size=medium] {
+       font-size: 20px;
+   }
 }
 ```
 
-## @media
+> Favor note que root permite utilizar los selectores de atributo, esta es la forma en que se comunica el selector `:root` con el componente.
 
-Ud es libre de construir su css como normalmente lo hace usando @media, @font, @keyframes u otros.
+### /example/components/title/index.js
 
 ```js
-import style from "root-css";
+import rules from "./style.root.css";
+import { style } from "root-css";
 
-let Title = style("div")(`
-   @media (max-width:320px){
-       button,
-       a{
-            padding : 5px 10px;
-           background : black;
-           color : white;
-           font-size : 12px;
-       }
-   }
-`);
+export default style("div")(rules);
 ```
-**CSS** : esta sería la salida del css del ejemplo anterior.
+
+La función style dentro de **root-css** creará un componente, que permite aislar e imprimir el estilo en el documento.
+
+### /example/index.js
+
+```js
+import { h, render } from "preact";
+import { style } from "root-css";
+import rules from "./style.root.css";
+import Title from "./components/title";
+
+let Layout = style("main")(rules);
+
+render(
+   <Layout>
+       <Title>normal</Title>
+       <Title size="small">small</Title>
+       <Title size="medium">medium</Title>
+   </Layout>,
+   document.body
+);
+```
+
+lo anterior es la forma simple de explicar y ver como usar **root-css**.
+
+## `style(string tagName[,object root]) : function `
+
+Esta función permite crear una pre instanciar la configuración de  un futuro componente, la función de retorno recibe como primer argumento las reglas a utilizar dentro del componente.
+
+```js
+import rules from "./style.root.css";
+import { style } from "root-css";
+
+export default style("div",{
+   primary : "crimson"
+})(rules);
+```
+
+## Selectores y propiedades
+
+### `:global`
+
+selector que permite generar estilos globales en el documento.
+
 ```css
-@media (max-width:320px){
-   .SybQrQ  button,
-   .SybQrQ  a{
-       padding : 5px 10px;
-       background : black;
-       color : white;
-       font-size : 12px;
-   }
+:global body{
+   font-family : "arial";
 }
 ```
 
-## Eventos y estilos
+### `root(<property>)`
 
-Si ud entrega al componente propiedades que cumpla con las siguiente expresion `/^(on[^\s]{3,}|style)/`, estas serán ignoradas como estado del componente y se definirán como una propiedad propia de él.
+permite imprimir propiedades del objeto root dado como argumento a la función de plantilla
+
+```css
+:root{
+   color : root(primary);
+}
+```
+
+## `<Theme/>`
+
+el segundo argumento entregado a la función style `style(string tagName[, object root])`, **root** es un objeto que permite transmitir propiedades a la función de plantilla.
+
+ud puede modificar las propiedades por default mediante el uso del componente **Theme**.
 
 ```js
-let Title = style(h1)(`
-    :root{
-        font-size : 50px;
-    }
-`);
-
-function App(){
-    return <div>
-        <Title onclick={()=>{
-            console.log("click!")
-        }}>Hello!</Title>
-    </div>
-}
-
+import ...
+render(
+   <Theme primary="orange">
+       <Layout>
+           <Title>Hello!</Title>
+       </Layout>
+   </Theme>,
+   document.body
+)
 ```
-
-Su css seguirá siendo el mismo, solo que esta vez orientado a componentes.
+> En el ejemplo anterior, si title tuviera por defecto la propiedad primary definida dentro del objeto **root**, el componente **Theme** reemplazará esta propiedad por "orange", pero este reemplazo aplica solo para el contexto dentro de **Theme**.

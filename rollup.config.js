@@ -1,29 +1,35 @@
 import buble from "rollup-plugin-buble";
 
-const NAME = "rootCss";
-
 export default {
     input: "src/index.js",
     output: [
         {
-            file: "build/umd.js",
-            format: "umd",
-            name: NAME
+            file: "build/root-css.js",
+            format: "iife",
+            name: "rootcss"
         },
         {
-            file: "build/cjs.js",
+            file: "build/root-css.umd.js",
+            format: "umd",
+            name: "rootcss"
+        },
+        {
+            file: "build/root-css.cjs.js",
             format: "cjs"
         },
         {
-            file: "build/iife.js",
-            format: "iife",
-            name: NAME
+            file: "build/root-css.es.js",
+            format: "es"
         }
     ],
+    sourceMap: true,
     external: ["preact"],
+    watch: {
+        chokidar: {},
+        exclude: ["node_modules/**"]
+    },
     plugins: [
         buble({
-            jsx: "h",
             objectAssign: "Object.assign"
         })
     ]
